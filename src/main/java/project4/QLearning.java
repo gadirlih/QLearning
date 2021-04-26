@@ -126,10 +126,12 @@ public class QLearning {
                     new_state_max = qTable[new_state[0]][new_state[1]][k];
                 }
             }
+            System.out.println("Previous Q Value: " + qTable[state[0]][state[1]][action]);
             // Update qTable of the current state
             qTable[state[0]][state[1]][action] = qTable[state[0]][state[1]][action] * (1 - learningRate) +
                     learningRate * (reward + discountRate * new_state_max);
 
+            System.out.println("NEW Q Value: " + qTable[state[0]][state[1]][action]);
             state = new_state;
 
             // check if the game is over
@@ -222,7 +224,17 @@ public class QLearning {
 //            return;
         }
 
-        // run q learning. if exception happens write to a file
+        // to print the qtable uncomment below code
+//        for (int i = 0; i < 40; i++){
+//            for (int j = 0; j < 40; j++){
+//                for (int k = 0; k < 4; k++){
+//                    System.out.print(qmain.qTable[i][j][k] + " ");
+//                }
+//                System.out.println();
+//            }
+//        }
+
+//         run q learning. if exception happens write to a file
         try {
             qmain.qLearning(currentState);
         } catch (IOException e) {
