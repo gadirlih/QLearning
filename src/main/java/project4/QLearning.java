@@ -4,6 +4,7 @@ import okhttp3.*;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Thread.sleep;
@@ -39,11 +40,31 @@ public class QLearning {
                     }
                 }
                 action = maxIndex;
+                System.out.println("Making best move");
             } else {
                 // else explore other actions
                 // chose random number between 0 and 3 inclusive
-                Random rand = new Random();
-                action = rand.nextInt(4);
+
+                ArrayList<Integer> rnd = new ArrayList<>();
+                // if the number is between  world boundaries than add it to the selectable action
+                if(state[1] - 1 >= 0){
+                    // can we move left?
+                    rnd.add(0);
+                }
+                if(state[1] + 1 < 40){
+                    // can we move right?
+                    rnd.add(1);
+                }
+                if(state[0] - 1 >= 0){
+                    // can we move up?
+                    rnd.add(2);
+                }
+                if(state[0] + 1 < 40){
+                    // can we move down?
+                    rnd.add(3);
+                }
+                action = rnd.get(new Random().nextInt(rnd.size()));
+                System.out.println("Making random move");
             }
             System.out.println("New Action: " + action);
 
@@ -129,6 +150,7 @@ public class QLearning {
             if (activeWorld == -1) done = true;
 //                done = true;
             System.out.println("Active World: " + activeWorld);
+            writeQTable();
             sleepSec(15);
         }
 
