@@ -11,30 +11,24 @@ import static java.lang.Thread.sleep;
 public class Main {
 
     final int WORLD_ID = 0;
-    final int TRAVERSE_COUNT = 6;
-//    final int MAX_STEPS_PER_EPISODE = 100;
 
-    double learning_rate = 1;
-    double discount_rate = 0.99;
+    double learningRate = 1;
+    double discountRate = 0.99;
 
-    double exploration_rate = 1;
-//    double max_exploration_rate = 0.9;
-//    double min_exploration_rate = 0.01;
-//    double exploration_decay_rate = 0.001;
+    double explorationRate = 1;
 
     // 0 - left 1 - right 2 - up 3 - down
     double[][][] qTable = new double[40][40][4];
 
     public void qLearning(int[] state) throws IOException {
-//        for(int i = 0; i < TRAVERSE_COUNT; i++) {
             // state has x and y coordinates on the grid
             boolean done = false;
 
             // make it while loop it should continue till traversing ends
             while(!done){
-                double expiration_rate_threshold = Math.random();
+                double expirationRateThreshold = Math.random();
                 int action;
-                if(expiration_rate_threshold > exploration_rate){
+                if(expirationRateThreshold > explorationRate){
                     // chose action based on the max qvalue of the state
                     double max = 0;
                     int maxIndex = 0;
@@ -112,8 +106,8 @@ public class Main {
                     }
                 }
                 // Update qTable of the current state
-                qTable[state[0]][state[1]][action] = qTable[state[0]][state[1]][action] * (1 - learning_rate) +
-                        learning_rate * (reward + discount_rate * new_state_max);
+                qTable[state[0]][state[1]][action] = qTable[state[0]][state[1]][action] * (1 - learningRate) +
+                        learningRate * (reward + discountRate * new_state_max);
 
                 state = new_state;
 
@@ -140,7 +134,6 @@ public class Main {
 
             // decay the exploration rate
 //            exploration_rate -= 0.2;
-//        }
 
 
     }
