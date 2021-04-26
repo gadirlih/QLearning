@@ -8,9 +8,9 @@ import java.util.Random;
 
 import static java.lang.Thread.sleep;
 
-public class Main {
+public class QLearning {
 
-    final int WORLD_ID = 0;
+    final int WORLD_ID = 1;
 
     double learningRate = 0.8;
     double discountRate = 0.8;
@@ -140,16 +140,16 @@ public class Main {
 
     void writeQTable() throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(
-                new FileOutputStream("myarray.ser")
+                new FileOutputStream("world" + WORLD_ID + ".ser")
         );
         out.writeObject(qTable);
         out.flush();
         out.close();
-        System.out.println("Q-Table is written to myarray.ser");
+        System.out.println("Q-Table is written to world" + WORLD_ID + ".ser");
     }
 
     double[][][] readQTable() throws IOException, ClassNotFoundException {
-        ObjectInputStream in = new ObjectInputStream(new FileInputStream("myarray.ser"));
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("world" + WORLD_ID + ".ser"));
         double[][][] array = (double[][][]) in.readObject();
         in.close();
         return array;
@@ -166,7 +166,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Main qmain = new Main();
+        QLearning qmain = new QLearning();
 
         // get location/state
         System.out.println("Getting Location to Start");
@@ -197,7 +197,7 @@ public class Main {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Could not read qTable");
             e.printStackTrace();
-            return;
+//            return;
         }
 
         // run q learning. if exception happens write to a file
