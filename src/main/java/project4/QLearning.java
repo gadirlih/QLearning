@@ -11,7 +11,7 @@ import static java.lang.Thread.sleep;
 
 public class QLearning {
 
-    final int WORLD_ID = 1;
+    int WORLD_ID = 0;
 
     double learningRate = 0.8;
     double discountRate = 0.8;
@@ -209,6 +209,8 @@ public class QLearning {
             String[] statesString = responseJSON.getString("state").split(":");
             currentState[0] = Integer.parseInt(statesString[0]);
             currentState[1] = Integer.parseInt(statesString[1]);
+            qmain.WORLD_ID = responseJSON.getInt("world");
+            System.out.println("Start in World: " + qmain.WORLD_ID);
         } catch (IOException e) {
             e.printStackTrace();
             return;
