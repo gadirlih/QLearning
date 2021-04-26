@@ -12,10 +12,10 @@ public class Main {
 
     final int WORLD_ID = 0;
 
-    double learningRate = 1;
-    double discountRate = 0.99;
+    double learningRate = 0.8;
+    double discountRate = 0.8;
 
-    double explorationRate = 1;
+    double explorationRate = 0.8;
 
     // 0 - left 1 - right 2 - up 3 - down
     double[][][] qTable = new double[40][40][4];
