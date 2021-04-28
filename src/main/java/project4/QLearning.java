@@ -27,9 +27,9 @@ public class QLearning {
 
         // make it while loop it should continue till traversing ends
         while (!done) {
-            double expirationRateThreshold = Math.random();
+            double expRateThreshold = Math.random();
             int action;
-            if (expirationRateThreshold > explorationRate) {
+            if (expRateThreshold > explorationRate) {
                 // chose action based on the max qvalue of the state
                 double max = 0;
                 int maxIndex = 0;
@@ -46,7 +46,7 @@ public class QLearning {
                 // chose random number between 0 and 3 inclusive
 
                 ArrayList<Integer> rnd = new ArrayList<>();
-                // if the number is between  world boundaries than add it to the selectable action
+                // if the number is between world boundaries than add it to the selectable actions list
                 if(state[1] - 1 >= 0){
                     // can we move left?
                     rnd.add(0);
