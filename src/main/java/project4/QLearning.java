@@ -13,10 +13,10 @@ public class QLearning {
 
     int WORLD_ID = 0;
 
-    double learningRate = 0.8;
-    double discountRate = 0.8;
+    double learningRate = 0.6;
+    double discountRate = 0.7;
 
-    double explorationRate = 0.8;
+    double explorationRate = 0.5;
 
     // 0 - left 1 - right 2 - up 3 - down
     double[][][] qTable = new double[40][40][4];
@@ -69,23 +69,23 @@ public class QLearning {
             System.out.println("New Action: " + action);
 
             // determine move from current state and action
-            int[] move = state;
+            String move = "";
             switch (action) {
                 case 0: // move left
-                    move = new int[]{state[0], state[1] - 1};
+                    move = "W";
                     break;
                 case 1: // move right
-                    move = new int[]{state[0], state[1] + 1};
+                    move = "E";
                     break;
                 case 2: // move up
-                    move = new int[]{state[0] - 1, state[1]};
+                    move = "N";
                     break;
                 case 3: // move down
-                    move = new int[]{state[0] + 1, state[1]};
+                    move = "S";
                     break;
             }
             System.out.println("Current State: " + state[0] + " , " + state[1]);
-            System.out.println("Move: " + move[0] + " , " + move[1]);
+            System.out.println("Move: " + move);
 
             // Make a move
             // API will return new state and reward
@@ -96,7 +96,7 @@ public class QLearning {
                     .build();
             MediaType mediaType = MediaType.parse("text/plain");
             RequestBody moveBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("move", move[0] + "," + move[1])
+                    .addFormDataPart("move", move)
                     .addFormDataPart("type", "move")
                     .addFormDataPart("teamId", "1258")
                     .addFormDataPart("worldId", String.valueOf(WORLD_ID))
@@ -153,7 +153,7 @@ public class QLearning {
 //                done = true;
             System.out.println("Active World: " + activeWorld);
             writeQTable();
-            sleepSec(15);
+            sleepSec(2);
         }
 
         // decay the exploration rate
