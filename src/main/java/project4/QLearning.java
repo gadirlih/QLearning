@@ -13,10 +13,10 @@ public class QLearning {
 
     int WORLD_ID = 0;
 
-    double learningRate = 0.6;
-    double discountRate = 0.7;
+    double learningRate = 0.8;
+    double discountRate = 0.8;
 
-    double explorationRate = 0.5;
+    double explorationRate = 0.8;
 
     // 0 - left 1 - right 2 - up 3 - down
     double[][][] qTable = new double[40][40][4];
